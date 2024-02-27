@@ -25,15 +25,20 @@
 
     <script>
       var stopTime = undefined;
-
+      var len = 0;
+      var maxLen = () => {
+        let x = Math.random()*8;
+        len = Math.floor(x) + 2;
+      }
       function startTime() {
+        maxLen();
         var my_target = document.getElementById("target");
         var my_counter = document.getElementById("counter");
-        for (var i = 0; i < 5; i++) {
+        for (var i = 0; i < len; i++) {
           (function (index) {
             setTimeout(() => {
               my_counter.innerHTML = index;
-            }, (4 - index) * 1000);
+            }, (len - index) * 1000);
           })(i);
         }
 
@@ -46,7 +51,7 @@
             my_target.innerHTML =
               "Time was" + " " + Math.abs(delayTime) + " " + "milliseconds";
           }
-        }, 4000);
+        }, len*1000);
       }
 
       function recordTime() {

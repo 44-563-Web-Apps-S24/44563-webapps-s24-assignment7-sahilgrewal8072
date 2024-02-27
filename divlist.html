@@ -43,6 +43,7 @@
     <button onclick="addFront()">Add Front</button>
     <button onclick="makeNewDiv()">Add end</button>
     <button onclick="remove()">remove</button>
+    <button onclick="swap()">Swap</button>
   </body>
   <script>
     function makeNewDiv() {
@@ -57,11 +58,11 @@
     }
 
     function addFront() {
-        var element = document.createElement("div");
-        element.textContent = document.querySelector("input").value;
-        element.style.color = "orange";
-        var container = document.getElementById('target');
-        container.prepend(element);
+      var element = document.createElement("div");
+      element.textContent = document.querySelector("input").value;
+      element.style.color = "orange";
+      var container = document.getElementById("target");
+      container.prepend(element);
     }
 
     function remove() {
@@ -69,6 +70,26 @@
       if (divListItems.length > 0) {
         var middleIndex = Math.floor(divListItems.length / 2);
         divListItems[middleIndex].remove();
+      }
+    }
+
+    function swap() {
+      let my_target = document.getElementById("target");
+      let children = Array.from(my_target.children);
+        let totalLen = children.length;
+      if (totalLen > 1) {
+        let randomIndex1 = Math.floor(Math.random() * totalLen);
+        let randomIndex2 = randomIndex1;
+
+        while (randomIndex2 === randomIndex1) {
+          randomIndex2 = Math.floor(Math.random() * totalLen);
+        }
+
+        let element1 = children[randomIndex1];
+        let element2 = children[randomIndex2];
+
+        my_target.insertBefore(element2, element1.nextSibling);
+        my_target.insertBefore(element1, element2.nextSibling);
       }
     }
   </script>

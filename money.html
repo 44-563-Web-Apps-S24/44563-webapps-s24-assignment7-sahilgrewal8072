@@ -19,13 +19,14 @@
   </style>
 <body>
 
-<div class="container mt-3">
+<div class="container mt-3"">
   <h1>Find the coins by Sahil Grewal</h1>
   <p>Click on the locations to find coins, beware the monster</p>
   <p id="location">Number of locations checked is zero.</p>
   <p id="score">Score is zero.</p>
   <p id="help" onclick="help()">Click for help.</p>
-  <p>Help report</p>
+  <p id="helpReport">Help report</p>
+  <button type="button" class="btn btn-primary" onclick="resetAllImages()">Reset Game</button>
 </div>
 
 <div class="container mt-3">
@@ -174,6 +175,49 @@
     const fancyCoinLocations = [2, 5, 14, 19, 23, 33];
     let monsterLocation = 20;
     let gameOver = false;
+    let randomNums = [];
+      let coinSpots = [];
+      let dangerSpot = [];
+      
+
+      const initializeGame = () => {
+        let x = 2;
+        let randomNums = generateUniqueRandoms();
+        let coinSpots = randomNums.slice(0, x);
+        let dangerSpot = randomNums.slice(x);
+      };
+
+      function generateUniqueRandoms() {
+            let random = new Set();
+        while (random.size < 4) {
+            let randNum = Math.floor(Math.random() * 35);
+            random.add(randNum); 
+        }
+        return Array.from(random);
+      }
+
+
+      let resetScore = () => {
+        locations = 0;
+        score = 0;
+          document.getElementById("location").innerHTML = "Number of location is " + locations;
+          document.getElementById("score").innerHTML = "Score is : " + score;
+      }
+
+        let resetAllImages = () => {
+          score = 0;
+          locations = 0;
+          lastLocation = 0;
+          gameOver = false;
+          initializeGame();
+          resetScore();
+          
+          var help_mssg = document.getElementById("helpReport");
+          help_mssg.innerHTML = "Help Report";
+
+          var fetchedImg = document.querySelectorAll("img");
+          fetchedImg.forEach((image) => image.src = "Images/BuildingImage.jpg");
+      };
 
     function check(pos) {
       if (gameOver == true) {
@@ -199,15 +243,16 @@
       lastLocation = pos;
 
       location_text = document.getElementById("location");
-      location_text.innerHTML = locations;
+      location_text.innerHTML = "Number of location is " + locations;
 
       score_curr = document.getElementById("score");
-      score_curr.innerHTML = score;
+      score_curr.innerHTML = "Score is : " + score;
     }
 
+    
     function help() {
       console.log("In the help");
-      help_mssg = document.getElementById("help");
+      help_mssg = document.getElementById("helpReport");
       let mssg = ["So close", "Grrr", "All clear"];
       let col = location % 5;
       let row = location / 5;
