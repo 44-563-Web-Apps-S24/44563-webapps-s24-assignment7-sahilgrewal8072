@@ -172,19 +172,18 @@
     let score = 0;
     let locations = 0;
     let lastLocation = 0;
-    const fancyCoinLocations = [2, 5, 14, 19, 23, 33];
-    let monsterLocation = 20;
+    // const fancyCoinLocations = [2, 5, 14, 19, 23, 33];
+    let fancyCoinLocations = [];
     let gameOver = false;
     let randomNums = [];
-      let coinSpots = [];
       let dangerSpot = [];
       
 
       const initializeGame = () => {
         let x = 2;
         let randomNums = generateUniqueRandoms();
-        let coinSpots = randomNums.slice(0, x);
-        let dangerSpot = randomNums.slice(x);
+         fancyCoinLocations = randomNums.slice(0, x);
+         dangerSpot = randomNums.slice(x);
       };
 
       function generateUniqueRandoms() {
@@ -196,7 +195,7 @@
         return Array.from(random);
       }
 
-
+      initializeGame();
       let resetScore = () => {
         locations = 0;
         score = 0;
@@ -230,7 +229,7 @@
         image.src = "Images/fancierCoin.jpg";
         score = score + 3;
       }
-      else if (pos == monsterLocation) {
+      else if (dangerSpot.includes(pos)) {
         image.src = "Images/Monster.jpg"
         score = score - 5;
         gameOver = true;
@@ -256,7 +255,7 @@
       let col = location % 5;
       let row = location / 5;
       const kinship_locations = [lastLocation + 1, lastLocation - 1, lastLocation + 5, lastLocation - 5];
-      const grr_locations = [monsterLocation + 1, monsterLocation - 5, monsterLocation + 5];
+      const grr_locations = [dangerSpot + 1, dangerSpot - 5, dangerSpot + 5];
       let found = false;
           kinship_locations.forEach(element => {
               if (fancyCoinLocations.includes(element)) {
