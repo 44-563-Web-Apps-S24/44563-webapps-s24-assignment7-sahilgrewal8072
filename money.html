@@ -252,8 +252,6 @@
     function help() {
       help_mssg = document.getElementById("helpReport");
       let mssg = ["So close", "Grrr", "All clear"];
-      let col = location % 5;
-      let row = location / 5;
       const kinship_locations = [lastLocation + 1, lastLocation - 1, lastLocation + 5, lastLocation - 5];
       const grr_locations = [dangerSpot + 1, dangerSpot - 5, dangerSpot + 5];
       let found = false;
